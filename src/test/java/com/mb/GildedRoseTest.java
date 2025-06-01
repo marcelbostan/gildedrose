@@ -171,6 +171,42 @@ class GildedRoseTest {
     }
 
     @Test
+    void conjuredItem_degradesTwiceAsFastAsNormal() {
+        Item item = new Item("Conjured", 3, 6);
+        var gildedRose = new GildedRose(new Item[]{item});
+
+        gildedRose.updateQuality();
+
+        var result = gildedRose.getItems();
+
+        assertThat(result)
+                .hasSize(1);
+
+        assertThatItem(result[0])
+                .hasName("Conjured")
+                .hasSellIn(2)
+                .hasQuality(4);
+    }
+
+    @Test
+    void conjuredItem_degradesBy4AfterExpiration() {
+        Item item = new Item("Conjured", 0, 6);
+        var gildedRose = new GildedRose(new Item[]{item});
+
+        gildedRose.updateQuality();
+
+        var result = gildedRose.getItems();
+
+        assertThat(result)
+                .hasSize(1);
+
+        assertThatItem(result[0])
+                .hasName("Conjured")
+                .hasNegativeSellIn()
+                .hasQuality(2);
+    }
+
+    @Test
     void allInOne_updateCorrectly() {
         Item[] items = new Item[] {
                 new Item("Normal roses", 66, 9),
@@ -181,7 +217,9 @@ class GildedRoseTest {
                 new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
                 new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20),
                 new Item("Backstage passes to a TAFKAL80ETC concert", 5, 20),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 0, 30)
+                new Item("Backstage passes to a TAFKAL80ETC concert", 0, 30),
+                new Item("Conjured", 3, 6)
+
         };
 
         var gildedRose = new GildedRose(items);
@@ -201,7 +239,8 @@ class GildedRoseTest {
                         tuple("Backstage passes to a TAFKAL80ETC concert", 14, 21),
                         tuple("Backstage passes to a TAFKAL80ETC concert", 9, 22),
                         tuple("Backstage passes to a TAFKAL80ETC concert", 4, 23),
-                        tuple("Backstage passes to a TAFKAL80ETC concert", -1, 0)
+                        tuple("Backstage passes to a TAFKAL80ETC concert", -1, 0),
+                        tuple("Conjured", 2, 4)
                 );
     }
 }

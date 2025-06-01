@@ -17,6 +17,13 @@ public record Item(String name, int sellIn, int quality) {
         return this;
     }
 
+    public Item decreaseQualityByTwo() {
+        if (quality > 1) {
+            return new Item(name, sellIn, quality - 2);
+        }
+        return this;
+    }
+
     public Item decreaseSellIn() {
         return new Item(name, sellIn - 1, quality);
     }
@@ -28,7 +35,7 @@ public record Item(String name, int sellIn, int quality) {
     public boolean isExpired() {
         return sellIn < 0;
     }
-    
+
     public boolean expiresBy(int value) {
         return sellIn < value;
     }
@@ -37,4 +44,6 @@ public record Item(String name, int sellIn, int quality) {
     public String toString() {
         return this.name + ", " + this.sellIn + ", " + this.quality;
     }
+
+
 }
