@@ -6,16 +6,12 @@ public final class AgedBrie implements InventoryItemType {
 
     @Override
     public Item update(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
-        }
+        item = item.increaseQualityByOneWhenBelowMax();
 
-        item.sellIn = item.sellIn - 1;
+        item = item.decreaseSellIn();
 
-        if (item.sellIn < 0) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
-            }
+        if (item.isExpired()) {
+            item = item.increaseQualityByOneWhenBelowMax();
         }
 
         return item;

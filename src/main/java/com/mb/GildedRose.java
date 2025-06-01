@@ -18,7 +18,7 @@ public class GildedRose {
     }
 
     private Item updateItem(Item item) {
-        var inventoryItemProcessor = InventoryItemType.from(item.name);
+        var inventoryItemProcessor = InventoryItemType.from(item.name());
         return inventoryItemProcessor.update(item);
     }
 }

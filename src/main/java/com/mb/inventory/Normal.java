@@ -6,16 +6,12 @@ public final class Normal implements InventoryItemType {
 
     @Override
     public Item update(Item item) {
-        if (item.quality > 0) {
-            item.quality = item.quality - 1;
-        }
+        item = item.decreaseQualityByOne();
 
-        item.sellIn = item.sellIn - 1;
+        item = item.decreaseSellIn();
 
-        if (item.sellIn < 0) {
-            if (item.quality > 0) {
-                item.quality = item.quality - 1;
-            }
+        if (item.isExpired()) {
+            item = item.decreaseQualityByOne();
         }
         return item;
     }

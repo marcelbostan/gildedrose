@@ -4,28 +4,25 @@ import com.mb.Item;
 
 public final class Backstage implements InventoryItemType {
 
+    private static final int SELL_IN_THRESHOLD_PLUS_TWO = 11;
+    private static final int SELL_IN_THRESHOLD_PLUS_THREE = 6;
+
     @Override
     public Item update(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
+        item = item.increaseQualityByOneWhenBelowMax();
 
-            if (item.sellIn < 11) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
-            }
-
-            if (item.sellIn < 6) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
-            }
+        if (item.expiresBy(SELL_IN_THRESHOLD_PLUS_TWO)) {
+            item = item.increaseQualityByOneWhenBelowMax();
         }
 
-        item.sellIn = item.sellIn - 1;
+        if (item.expiresBy(SELL_IN_THRESHOLD_PLUS_THREE)) {
+            item = item.increaseQualityByOneWhenBelowMax();
+        }
 
-        if (item.sellIn < 0) {
-            item.quality = 0;
+        item = item.decreaseSellIn();
+
+        if (item.isExpired()) {
+            item = item.resetQuality();
         }
 
         return item;
