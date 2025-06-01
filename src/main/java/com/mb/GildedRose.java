@@ -12,13 +12,13 @@ public class GildedRose {
     }
 
     public void updateQuality() {
-        for (Item item : items) {
-            updateItem(item);
+        for (int i = 0; i < items.length; i++) {
+            items[i] = updateItem(items[i]);
         }
     }
 
-    private static void updateItem(Item item) {
+    private Item updateItem(Item item) {
         var inventoryItemProcessor = InventoryItemType.from(item.name);
-        inventoryItemProcessor.update(item);
+        return inventoryItemProcessor.update(item);
     }
 }

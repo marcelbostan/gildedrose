@@ -5,7 +5,7 @@ import com.mb.Item;
 public final class Normal implements InventoryItemType {
 
     @Override
-    public void update(Item item) {
+    public Item update(Item item) {
         if (item.quality > 0) {
             item.quality = item.quality - 1;
         }
@@ -17,5 +17,6 @@ public final class Normal implements InventoryItemType {
                 item.quality = item.quality - 1;
             }
         }
+        return item;
     }
 }

@@ -3,7 +3,7 @@ package com.mb.inventory;
 import com.mb.Item;
 
 public sealed interface InventoryItemType permits AgedBrie, Backstage, Sulfuras, Normal {
-    void update(Item item);
+    Item update(Item item);
 
     static InventoryItemType from(String name) {
         return switch (name) {

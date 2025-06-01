@@ -5,7 +5,8 @@ import com.mb.Item;
 public final class Sulfuras implements InventoryItemType {
 
     @Override
-    public void update(Item item) {
+    public Item update(Item item) {
         //Do nothing
+        return item;
     }
 }

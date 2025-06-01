@@ -5,7 +5,7 @@ import com.mb.Item;
 public final class AgedBrie implements InventoryItemType {
 
     @Override
-    public void update(Item item) {
+    public Item update(Item item) {
         if (item.quality < 50) {
             item.quality = item.quality + 1;
         }
@@ -17,5 +17,7 @@ public final class AgedBrie implements InventoryItemType {
                 item.quality = item.quality + 1;
             }
         }
+
+        return item;
     }
 }

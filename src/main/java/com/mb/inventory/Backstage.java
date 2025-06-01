@@ -5,7 +5,7 @@ import com.mb.Item;
 public final class Backstage implements InventoryItemType {
 
     @Override
-    public void update(Item item) {
+    public Item update(Item item) {
         if (item.quality < 50) {
             item.quality = item.quality + 1;
 
@@ -27,5 +27,7 @@ public final class Backstage implements InventoryItemType {
         if (item.sellIn < 0) {
             item.quality = 0;
         }
+
+        return item;
     }
 }
