@@ -1,8 +1,11 @@
 package com.mb;
 
 
+import lombok.Getter;
+
+@Getter
 public class GildedRose {
-    Item[] items;
+    private Item[] items;
 
     public GildedRose(Item[] items) {
         this.items = items;
